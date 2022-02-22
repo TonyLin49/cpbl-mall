@@ -1,17 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryColumn, JoinTable, OneToMany, JoinColumn } from 'typeorm';
-import { OrderDetail } from './order-detail.entity';
+import { MasterEntity } from 'src/basic/masterEntity';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { OrderDetail as Detail } from './order-detail.entity';
 
 @Entity('orders')
-export class Order {
-
-    @ApiProperty({description: '流程代碼:為系統碼+訂單編號', example: '1O1110218001'})
-    @PrimaryColumn({length: 50})
-    flowkey: string;
-
-    @ApiProperty({description: '系統碼:一律填寫 1', example: '1'})
-    @Column({length: 10})
-    sysno: string;
+export class Order extends MasterEntity {
 
     @ApiProperty({description: '訂單編號', example: 'O1110218001'})
     @Column({length: 50})
@@ -62,7 +55,10 @@ export class Order {
     vatno: string;
 
     @ApiProperty({description: '訂單總金額', example: 760})
-    @Column()
+    @Column("decimal",{
+        precision: 8,
+        scale: 0,
+        default: () => "(0)"})
     totalamount: number;
 
     @ApiProperty({description: '訂單狀態(S01:已付款, S02:已出貨, S03:退貨, S04:已取消)', example: 'S01'})
@@ -96,15 +92,15 @@ export class Order {
         }
     )
     @OneToMany(
-        ()=>OrderDetail, 
+        ()=>Detail, 
         orderDetail=>orderDetail.flowkey,
         {cascade: true}
     )
-    details: OrderDetail[] 
+    details: Detail[] 
 
-    addDetail(detail: OrderDetail){
+    addDetail(detail: Detail){
         if(this.details == null){
-            this.details = new Array<OrderDetail>();
+            this.details = new Array<Detail>();
         }
         this.details.push(detail);
     }
