@@ -1,60 +1,66 @@
 import { Inject, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { OrderDetail } from './entity/order-detail.entity';
-import { Order } from './entity/order.entity';
+import { Order as Master } from './entity/order.entity';
+import { OrderDetail as Detail } from './entity/order-detail.entity';
 
 @Injectable()
 export class OrdersService {
 
   constructor(
     @Inject('ORDER_REPOSITORY')
-    private repository: Repository<Order>,
+    private masterRpstry: Repository<Master>,
     @Inject('ORDERDETAIL_REPOSITORY')
-    private detailRepository: Repository<OrderDetail>,
+    private detailRpstry: Repository<Detail>,
   ){}
 
-  async create(orderDto: Order) {
-    await this.throwNotAcceptException(orderDto.flowkey);
-    return this.repository.save(orderDto);
+  async create(masterDto: Master) {
+    if(await this.hasMasterEntity(masterDto.flowkey)) {
+      throw new NotAcceptableException(`this flowkey #${masterDto.flowkey} already exists, no need to add`)
+    }
+    else return this.masterRpstry.save(masterDto);
   }
 
   async findAll() {
-    return await this.repository.find({relations:['details']});
+    return await this.masterRpstry.find({relations:['details']});
   }
 
   async findOne(key: string) {
-    this.throwNotFoundException(key);
-    return await this.repository.findOne(key,{relations:['details']});
+    if(!(await this.hasMasterEntity(key)))
+      throw this.notFoundException(key);
+    else 
+      return await this.masterRpstry.findOne(key,{relations:['details']});
   }
 
-  async update(key: string, orderDto: Order) {
-    this.throwNotFoundException(key);
-    this.deleteDetails(key);
-    return this.repository.save(orderDto)
-  }
-
-  remove(key: string) {
-    this.throwNotFoundException(key);
-    this.deleteDetails(key);
-    return this.repository.delete(key);
-  }
-
-  private async throwNotFoundException(key: string){
-    const order = await this.repository.findOne(key);
-    if(!order){
-      throw new NotFoundException(`無此訂單 #${key}`)
+  async update(key: string, masterDto: Master) {
+    if(!(await this.hasMasterEntity(key))){
+      throw this.notFoundException(key);
+    } else {
+      this.deleteDetails(key);
+      return this.masterRpstry.save(masterDto)
     }
   }
 
-  private async throwNotAcceptException(key: string){
-    const order = await this.repository.findOne(key);
-    if(order){
-      throw new NotAcceptableException(`此訂單#${key}資料已存在，不必重複新增`)
+  async remove(key: string) {
+    if(!(await this.hasMasterEntity(key))){
+      throw this.notFoundException(key);
+    } else {
+      this.deleteDetails(key);
+      return this.masterRpstry.delete(key);
     }
+  }
+
+  private async hasMasterEntity(key: string): Promise<boolean>{
+    const order = await this.masterRpstry.findOne(key);
+    if(order) return true;
+    else return false;
+  }
+
+  private notFoundException(key: string): NotFoundException{
+    return new NotFoundException(`not found this flowkey #${key}`)
   }
 
   private deleteDetails(key: string){
-    this.detailRepository.createQueryBuilder().delete()
+    this.detailRpstry.createQueryBuilder().delete()
         .where('flowkey = :key', {key: key}).execute()
   }
 }
