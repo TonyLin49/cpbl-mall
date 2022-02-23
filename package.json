@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "gen:model": "npx typeorm-model-generator -h 60.248.109.21 -d eip -u sa -x gp2u03@cpbl -e mssql"
+    "gen:model": "npx typeorm-model-generator -h 60.248.109.21 -d test -u sa -x gp2u03@cpbl -e mssql"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
