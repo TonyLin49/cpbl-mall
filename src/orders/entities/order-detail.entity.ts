@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DetailEntity } from 'src/basicClasses/entities/detailEntity';
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Order as Master } from './order.entity';
+import { OrderEntity as Master } from './order.entity';
 
 @Entity('orders_detail')
-export class OrderDetail extends DetailEntity{
+export class OrderDetailEntity extends DetailEntity{
 
     static REPOSITORY_NAME: string = 'ORDERDETAIL_REPOSITORY';
 

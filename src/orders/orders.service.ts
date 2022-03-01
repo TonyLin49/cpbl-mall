@@ -1,13 +1,11 @@
-import { Inject, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable} from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Order as Master } from './entities/order.entity';
-import { OrderDetail as Detail } from './entities/order-detail.entity';
-import { BasicService } from 'src/basicClasses/services/basicService';
+import { OrderEntity as Master } from './entities/order.entity';
+import { OrderDetailEntity as Detail } from './entities/order-detail.entity';
+import { MasterDetailService } from 'src/basicClasses/services/masterDetailService';
 
 @Injectable()
-export class OrdersService extends BasicService{
-
-  protected hasDetail: boolean = false;
+export class OrdersService extends MasterDetailService{
 
   constructor(
     @Inject(Master.REPOSITORY_NAME)

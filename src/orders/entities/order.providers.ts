@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
-import { Order as Master } from './order.entity';
-import { OrderDetail as Detail } from './order-detail.entity';
+import { OrderEntity as Master } from './order.entity';
+import { OrderDetailEntity as Detail } from './order-detail.entity';
 
 export const orderProviders = [
   {

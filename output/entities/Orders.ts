@@ -3,25 +3,25 @@ import { OrdersDetail } from "./OrdersDetail";
 
 @Entity("orders", { schema: "dbo" })
 export class Orders {
-  @Column("nvarchar", { primary: true, name: "flowkey", length: 50 })
+  @Column("varchar", { primary: true, name: "flowkey", length: 50 })
   flowkey: string;
 
-  @Column("nvarchar", { name: "sysno", length: 10 })
+  @Column("varchar", { name: "sysno", length: 10 })
   sysno: string;
 
-  @Column("nvarchar", { name: "code", length: 40 })
+  @Column("varchar", { name: "code", length: 40 })
   code: string;
 
-  @Column("nvarchar", { name: "applicant", length: 20 })
+  @Column("varchar", { name: "applicant", length: 20 })
   applicant: string;
 
-  @Column("nvarchar", { name: "createdept", length: 20 })
+  @Column("varchar", { name: "createdept", length: 20 })
   createdept: string;
 
-  @Column("nvarchar", { name: "orderdate", length: 10 })
+  @Column("varchar", { name: "orderdate", length: 10 })
   orderdate: string;
 
-  @Column("nvarchar", { name: "payment", length: 20 })
+  @Column("varchar", { name: "payment", length: 20 })
   payment: string;
 
   @Column("nvarchar", { name: "customer", length: 50 })
@@ -42,7 +42,7 @@ export class Orders {
   @Column("nvarchar", { name: "memo", length: 200 })
   memo: string;
 
-  @Column("nvarchar", { name: "vatno", length: 10 })
+  @Column("varchar", { name: "vatno", length: 10 })
   vatno: string;
 
   @Column("decimal", {
@@ -53,7 +53,7 @@ export class Orders {
   })
   totalamount: number;
 
-  @Column("nvarchar", { name: "orderstatus", length: 20 })
+  @Column("varchar", { name: "orderstatus", length: 20 })
   orderstatus: string;
 
   @OneToMany(() => OrdersDetail, (ordersDetail) => ordersDetail.flowkey2)

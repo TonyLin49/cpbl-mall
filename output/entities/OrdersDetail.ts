@@ -3,10 +3,10 @@ import { Orders } from "./Orders";
 
 @Entity("orders_detail", { schema: "dbo" })
 export class OrdersDetail {
-  @Column("nvarchar", { primary: true, name: "flowkey", length: 50 })
+  @Column("varchar", { primary: true, name: "flowkey", length: 50 })
   flowkey: string;
 
-  @Column("decimal", { primary: true, name: "seq_no", precision: 8, scale: 0 })
+  @Column("int", { primary: true, name: "seq_no" })
   seqNo: number;
 
   @Column("nvarchar", { name: "productcode", length: 20 })
@@ -14,6 +14,9 @@ export class OrdersDetail {
 
   @Column("nvarchar", { name: "productname", length: 50 })
   productname: string;
+
+  @Column("varchar", { name: "batchno", length: 30 })
+  batchno: string;
 
   @Column("nvarchar", { name: "unit", length: 10 })
   unit: string;
