@@ -5,6 +5,6 @@ export const employeeProviders = [
   {
     provide: Master.REPOSITORY_NAME,
     useFactory: (connection: Connection) => connection.getRepository(Master),
-    inject: ['DATABASE_CONNECTION'],
+    inject: ['MSSQL_CONNECTION'],
   }
 ];
