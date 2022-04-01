@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { MasterService } from 'src/basicClasses/services/masterService';
+import { MasterService } from 'src/basicClasses/services/master.service';
 import { Repository } from 'typeorm';
 import { EmployeeEntity as Master } from './entities/employee.entity';
 

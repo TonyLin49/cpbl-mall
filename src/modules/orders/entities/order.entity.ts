@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MasterEntity } from 'src/basicClasses/entities/masterEntity';
+import { MasterEntity } from 'src/basicClasses/entities/master.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
-import { OrderDetailEntity as Detail } from './order-detail.entity';
+import { OrderDetailEntity as Detail } from './order.detail.entity';
 
 @Entity('orders')
 export class OrderEntity extends MasterEntity {
@@ -28,7 +28,7 @@ export class OrderEntity extends MasterEntity {
     @Column("varchar",{length: 20})
     payment: string;
 
-    @ApiProperty({description: '客戶名稱', example: '張無忌'})
+    @ApiProperty({description: '客戶名稱', example: '王大陸'})
     @Column({length: 50})
     customer: string;
 

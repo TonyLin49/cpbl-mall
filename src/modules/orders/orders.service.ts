@@ -1,8 +1,8 @@
 import { Inject, Injectable} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { OrderEntity as Master } from './entities/order.entity';
-import { OrderDetailEntity as Detail } from './entities/order-detail.entity';
-import { MasterDetailService } from 'src/basicClasses/services/masterDetailService';
+import { OrderDetailEntity as Detail } from './entities/order.detail.entity';
+import { MasterDetailService } from 'src/basicClasses/services/master.detail.service';
 
 @Injectable()
 export class OrdersService extends MasterDetailService{

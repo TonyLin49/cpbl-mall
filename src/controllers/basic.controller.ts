@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
-import { MasterService as Service} from '../basicClasses/services/masterService';
-import { MasterEntity } from '../basicClasses/entities/masterEntity';
+import { MasterService as Service} from '../basicClasses/services/master.service';
+import { MasterEntity } from '../basicClasses/entities/master.entity';
 import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('api/order')
-export class MasterController {
+export class BasicController {
   
   constructor(protected service: Service) {}
 

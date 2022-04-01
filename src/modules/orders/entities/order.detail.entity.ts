@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DetailEntity } from 'src/basicClasses/entities/detailEntity';
+import { DetailEntity } from 'src/basicClasses/entities/detail.entity';
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { OrderEntity as Master } from './order.entity';
 

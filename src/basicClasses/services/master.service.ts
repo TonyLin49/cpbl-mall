@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { MasterEntity as Master } from '../entities/masterEntity';
+import { MasterEntity as Master } from '../entities/master.entity';
 
 @Injectable()
 export class MasterService {

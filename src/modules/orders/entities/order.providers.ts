@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
 import { OrderEntity as Master } from './order.entity';
-import { OrderDetailEntity as Detail } from './order-detail.entity';
+import { OrderDetailEntity as Detail } from './order.detail.entity';
 
 const DB_PROVIDE_NAME = 'MSSQL_CONNECTION';
 

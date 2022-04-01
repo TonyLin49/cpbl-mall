@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { MasterEntity as Master } from '../entities/masterEntity';
-import { DetailEntity as Detail } from '../entities/detailEntity';
-import { MasterService } from './masterService';
+import { MasterEntity as Master } from '../entities/master.entity';
+import { DetailEntity as Detail } from '../entities/detail.entity';
+import { MasterService } from './master.service';
 
 @Injectable()
 export class MasterDetailService extends MasterService {
@@ -43,8 +43,8 @@ export class MasterDetailService extends MasterService {
     }
   }
 
-  protected deleteDetails(key: string) {
-    this.detailRpstry.createQueryBuilder().delete()
+  protected async deleteDetails(key: string) {
+    await this.detailRpstry.createQueryBuilder().delete()
         .where('flowkey = :key', {key: key}).execute();
   }
 }
